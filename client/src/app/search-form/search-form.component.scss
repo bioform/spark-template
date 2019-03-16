@@ -1,0 +1,13 @@
+form {
+    display: flex;
+    flex-direction: row;
+    padding: 0 15px;
+}
+  
+form > mat-form-field {
+    flex: 1 1 auto;
+}
+
+form button {
+    top: 10px;
+}

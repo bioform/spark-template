@@ -1,0 +1,9 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+      <mat-label>Что ищем?</mat-label>
+      <input matInput placeholder="Вкусные плюшки" formControlName="query">
+  </mat-form-field>
+  <span>
+    <button button="submit" mat-raised-button color="primary"  [disabled]="!searchForm.valid">Найти</button>
+  </span>
+</form>
