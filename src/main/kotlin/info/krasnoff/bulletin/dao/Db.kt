@@ -1,6 +1,6 @@
 package info.krasnoff.bulletin.dao
 
-import info.krasnoff.bulletin.jpa.Models
+import info.krasnoff.bulletin.domains.Models
 import io.requery.cache.EntityCacheBuilder
 /*
 import org.hibernate.Session;

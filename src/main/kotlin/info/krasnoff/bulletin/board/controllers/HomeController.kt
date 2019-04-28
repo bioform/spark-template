@@ -1,8 +1,7 @@
 package info.krasnoff.bulletin.board.controllers
 
 import info.krasnoff.bulletin.dao.UserDao
-import info.krasnoff.bulletin.jpa.User
-import info.krasnoff.bulletin.jpa.UserEntity
+import info.krasnoff.bulletin.domains.UserEntity
 import spark.Request
 import spark.Response
 

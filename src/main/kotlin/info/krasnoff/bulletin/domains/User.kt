@@ -1,4 +1,4 @@
-package info.krasnoff.bulletin.jpa
+package info.krasnoff.bulletin.domains
 
 import io.requery.*
 

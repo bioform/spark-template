@@ -1,0 +1,26 @@
+:host {
+  display: inline-block;
+  padding-top: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+
+  &.mat-list-item {
+   width: auto;
+   flex: 0 1 auto;
+   display: inline-block;
+
+   color: white;
+   text-decoration: none;
+   color: white;
+  }
+}
+
+a:hover,
+a:active {
+  &.mat-list-item {
+    color: lightgray;
+  }
+}

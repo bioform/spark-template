@@ -1,7 +1,7 @@
 package info.krasnoff.bulletin.dao
 
-import info.krasnoff.bulletin.jpa.User
-import info.krasnoff.bulletin.jpa.UserEntity
+import info.krasnoff.bulletin.domains.User
+import info.krasnoff.bulletin.domains.UserEntity
 
 //import org.hibernate.testing.transaction.TransactionUtil.doInHibernate
 

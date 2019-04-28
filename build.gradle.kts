@@ -58,9 +58,11 @@ dependencies {
     kapt("io.requery", "requery-processor", requeryVersion)
 
     compile("io.github.microutils:kotlin-logging:$kotlinLoggingVer")
-
     compile("ch.qos.logback:logback-classic:$logbackVer")
     compile("org.fusesource.jansi:jansi:$jAnsiVer")
+
+    compile("org.pac4j:spark-pac4j:3.0.0")
+    compile("org.pac4j:pac4j-oauth:3.6.1")
 
     testCompile("junit", "junit", "4.12")
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic

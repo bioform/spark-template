@@ -15,13 +15,30 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardsManagerComponent } from './cards-manager/cards-manager.component';
 
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
+import { AuthComponent } from './auth/auth.component';
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("527133725719-335qctmbfm4pio24s13tp48o65lg0ml0.apps.googleusercontent.com")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
+
+
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
     SearchFormComponent,
     CardsComponent,
-    CardsManagerComponent
+    CardsManagerComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +56,15 @@ import { CardsManagerComponent } from './cards-manager/cards-manager.component';
     MatInputModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
