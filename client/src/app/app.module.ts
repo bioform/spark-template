@@ -9,21 +9,32 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatInputModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatInputModule, MatGridListModule, MatCardModule, MatMenuModule, MatDialogModule } from '@angular/material';
 
 import { SearchFormComponent } from './search-form/search-form.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardsManagerComponent } from './cards-manager/cards-manager.component';
 
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
-import { AuthComponent } from './auth/auth.component';
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+import { VKLoginProvider} from 'angularx-social-login-vk';
+import { AuthComponent, AuthDialogComponent } from './auth/auth.component';
 
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
     provider: new GoogleLoginProvider("527133725719-335qctmbfm4pio24s13tp48o65lg0ml0.apps.googleusercontent.com")
+  },
+  /*
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('561602290896109')
+  },
+  {
+    id: VKLoginProvider.PROVIDER_ID,
+    provider: new VKLoginProvider('VK-App-Id') // ID приложения в Вконтакте
   }
+  */
 ]);
 
 export function provideConfig() {
@@ -38,7 +49,8 @@ export function provideConfig() {
     SearchFormComponent,
     CardsComponent,
     CardsManagerComponent,
-    AuthComponent
+    AuthComponent,
+    AuthDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,8 +69,10 @@ export function provideConfig() {
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
+    MatDialogModule,
     SocialLoginModule
   ],
+  entryComponents: [AuthDialogComponent],
   providers: [
     {
       provide: AuthServiceConfig,

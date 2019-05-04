@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Войдить с помощью</h1>
+<div mat-dialog-content>
+  <button mat-fab color="primary" (click)="signInWithGoogle()">
+    <mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon>
+  </button>
+  <button mat-fab color="primary" (click)="signInWithFB()">
+    <mat-icon fontSet="fa" fontIcon="fa-facebook"></mat-icon>
+  </button>
+  <button mat-fab color="primary" (click)="signInWithVk()">
+    <mat-icon fontSet="fa" fontIcon="fa-vk"></mat-icon>
+  </button>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Нет, спасибо.</button>
+</div>
