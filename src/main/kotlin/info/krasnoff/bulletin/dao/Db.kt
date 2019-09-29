@@ -16,7 +16,7 @@ import javax.sql.CommonDataSource
 
 
 object Db {
-    val JDBC_URL_TEMPLATE = "jdbc:h2:%s/db/bulletin_board;AUTO_SERVER=TRUE";
+    const val JDBC_URL_TEMPLATE = "jdbc:h2:%s/db/bulletin_board;AUTO_SERVER=TRUE";
     //val sessionFactory: SessionFactory
     val dataStore: KotlinEntityDataStore<Any>
 

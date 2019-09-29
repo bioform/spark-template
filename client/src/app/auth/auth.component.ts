@@ -57,7 +57,6 @@ export class AuthDialogComponent implements OnInit  {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-
       this.sendAuthToken(user.idToken);
     });
   }
@@ -84,7 +83,7 @@ export class AuthDialogComponent implements OnInit  {
   }
 
   sendAuthToken(token: string) : void {
-     this.http.post("url to google login in your rest api",
+     this.http.post('/api/auth/google/login',
         {
            token: token
         }
