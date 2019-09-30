@@ -1,21 +1,13 @@
 package info.krasnoff.bulletin.board.controllers.auth
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import spark.Request
 import spark.Response
 import java.io.FileReader
-import com.google.gson.Gson
-import java.util.Collections
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
-
-
-
-
+import com.google.gson.Gson
 
 
 object GoogleAuthController {
@@ -33,17 +25,17 @@ object GoogleAuthController {
 
         if (request.headers("X-Requested-With") == null) {
             // Without the `X-Requested-With` header, this request could be forged. Aborts.
+            return ""
         }
 
-        val idTokenString = Gson().fromJson(request.body(), TokenRequest::class.java).token
+        val idTokenString = Gson().fromJson(request.body(), GoogleTokenRequest::class.java).idToken
 
         // Exchange auth code for access token
         val clientSecrets = GoogleClientSecrets.load(
                 JacksonFactory.getDefaultInstance(), FileReader(CLIENT_SECRET_FILE))
+
         val transport = NetHttpTransport()
         val jsonFactory = JacksonFactory.getDefaultInstance()
-        // JsonParser jsonParser = jsonFactory.createJsonParser(nwkJsonString);
-        //        Network netwrkOut = jsonParser.parse(Network.class);
 
         val verifier = GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                 // Specify the CLIENT_ID of the app that accesses the backend:
@@ -54,27 +46,6 @@ object GoogleAuthController {
 
         val idToken = verifier.verify(idTokenString)
 
-        /*
-        val tokenResponse = GoogleAuthorizationCodeTokenRequest(
-                NetHttpTransport(),
-                JacksonFactory.getDefaultInstance(),
-                "https://oauth2.googleapis.com/token",
-                clientSecrets.getDetails().getClientId(),
-                clientSecrets.getDetails().getClientSecret(),
-                authCode,
-                REDIRECT_URI)  // Specify the same redirect URI that you use with your web
-                               // app. If you don't have a web version of your app, you can
-                               // specify an empty string.
-                .execute()
-
-        val accessToken = tokenResponse.getAccessToken()
-
-        // Use access token to call API
-        val credential = GoogleCredential().setAccessToken(accessToken)
-
-        // Get profile info from ID token
-        val idToken = tokenResponse.parseIdToken()
-        */
         val payload = idToken.getPayload()
         val userId = payload.getSubject()  // Use this value as a key to identify a user.
         val email = payload.getEmail()

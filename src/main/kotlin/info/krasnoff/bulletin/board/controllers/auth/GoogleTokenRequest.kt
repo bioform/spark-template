@@ -1,3 +1,3 @@
 package info.krasnoff.bulletin.board.controllers.auth
 
-data class TokenRequest(val token:String?)
+data class GoogleTokenRequest(val idToken:String?)

@@ -1,6 +1,6 @@
 #FileLock
-#Sun Sep 29 17:07:14 MSK 2019
-server=192.168.99.1\:53770
+#Mon Sep 30 14:07:20 MSK 2019
+server=192.168.99.1\:50706
 hostName=LAPTOP-6QJ5N7HQ
 method=file
-id=16d7d58b0f43f14e0c4a7e84a7e8b57aa45ab686eec
+id=16d81da5adbcac887cdde7b119448c25185095f8ec6

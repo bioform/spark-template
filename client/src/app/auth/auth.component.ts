@@ -36,6 +36,7 @@ export class AuthComponent {
 
   signOut(): void {
     this.authService.signOut();
+    this.user = null
   }
 }
 
@@ -57,7 +58,9 @@ export class AuthDialogComponent implements OnInit  {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      this.sendAuthToken(user.idToken);
+      if( user ){
+        this.sendGoogleAuthToken(user);
+      }
     });
   }
 
@@ -82,10 +85,10 @@ export class AuthDialogComponent implements OnInit  {
       */
   }
 
-  sendAuthToken(token: string) : void {
+  sendGoogleAuthToken(user: SocialUser) : void {
      this.http.post('/api/auth/google/login',
         {
-           token: token
+          idToken: user.idToken
         }
      ).subscribe(
         onSuccess => {
