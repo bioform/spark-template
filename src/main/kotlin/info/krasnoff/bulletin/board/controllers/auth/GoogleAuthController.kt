@@ -8,6 +8,9 @@ import spark.Response
 import java.io.FileReader
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
 import com.google.gson.Gson
+import info.krasnoff.bulletin.dao.UserDao
+import info.krasnoff.bulletin.domains.User
+import info.krasnoff.bulletin.domains.UserEntity
 
 
 object GoogleAuthController {
@@ -56,6 +59,11 @@ object GoogleAuthController {
         val familyName = payload.get("family_name") as String
         val givenName = payload.get("given_name") as String
 
-        return email
+        return updateUser(email).email
+    }
+
+    // TODO use auto sign up service instead
+    private fun updateUser(email: String):User {
+        return UserDao.findOrCreateByEmail(email)
     }
 }

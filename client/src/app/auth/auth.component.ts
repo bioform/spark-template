@@ -8,6 +8,8 @@ import { SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { VKLoginProvider} from 'angularx-social-login-vk';
 
+import { SessionService } from '../session.service';
+
 export interface DialogData {
   extra_data: object;
 }
@@ -17,11 +19,16 @@ export interface DialogData {
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   user: SocialUser;
 
-  constructor(private authService: AuthService, public dialog: MatDialog) {}
-
+  constructor(private authService: AuthService, private sessionService: SessionService, public dialog: MatDialog) {}
+  
+  ngOnInit() {
+    this.sessionService.authState.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AuthDialogComponent, {
@@ -30,13 +37,12 @@ export class AuthComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.user = result;
+      // 'result' is user
     });
   }
 
   signOut(): void {
     this.authService.signOut();
-    this.user = null
   }
 }
 
@@ -45,11 +51,11 @@ export class AuthComponent {
   templateUrl: 'auth-dialog.component.html',
   styleUrls: ['./auth-dialog.component.scss']
 })
-export class AuthDialogComponent implements OnInit  {
-  user: SocialUser;
+export class AuthDialogComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private sessionService: SessionService,
     private http: Http,
     public dialogRef: MatDialogRef<AuthDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
@@ -57,10 +63,10 @@ export class AuthDialogComponent implements OnInit  {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
       if( user ){
         this.sendGoogleAuthToken(user);
       }
+      this.sessionService.changeAuthState(user);
     });
   }
 
@@ -92,10 +98,9 @@ export class AuthDialogComponent implements OnInit  {
         }
      ).subscribe(
         onSuccess => {
-           this.dialogRef.close(this.user);
+           this.dialogRef.close(user);
         }, onFail => {
-           //login was unsuccessful
-           //show an error message
+           this.authService.signOut();
         }
      );
   }
